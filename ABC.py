@@ -6,10 +6,6 @@ import math
 @ Tests:
 	a) Sphere function: python ABC.py 20 5 2000 100 100 0
 	b) Rastrigin function: python ABC.py 125 10 500 15 50 1
-	c) Griewank function: python ABC.py 125 10 500 600 50 2
-	
-	s1) For ($i=0; $i -le 30; $i++) { python ABC.py 125 10 500 15 50 1 }
-	s2) For ($i=0; $i -le 30; $i++) { python ABC.py 125 10 500 600 50 2 }
 
 @ Parameters:
 	population: 			number of food sources
@@ -129,11 +125,10 @@ def wait():
 # this function chooses based on a given probability and a random number whether a onlooker will choose the food source
 def choose(probability):
 	rand = float(random.randint(0,100))/float(100)
-	if rand <= probability:
+	if rand > probability:
 		return True
 	else:
 		return False
-
 
 # reads arguments
 if len(sys.argv) > 1:
@@ -168,14 +163,14 @@ while n_iteration < max_iteration:
 		else:
 			trials[i] += 1
 
-	# employed bees share the information with onlooker bees
 	# the probability of each food source is calculated
 	probability = []
 	sumFitness = 0
 	for i in range(population):
 		sumFitness = sumFitness + foodsources[i].fitness()
 	for i in range(population):
-		probability.append(1 - float(foodsources[i].fitness())/float(sumFitness))
+		probability.append(float(foodsources[i].fitness())/float(sumFitness))
+	
 	# onlookers choose the food sources and exploit them
 	onlookers_index = 0
 	food_index = 0
