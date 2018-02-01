@@ -209,5 +209,5 @@ elif function == 3:
 	print " $ Function: Schwefel"
 else:
 	print " $ Function: Sphere"
-best_solution.position('Best solution: ')
+print "> Best solution: " + str(best_solution.fitness())
 output.write(str(best_solution.fitness())+'\n')
